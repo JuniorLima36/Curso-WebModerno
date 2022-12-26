@@ -1,0 +1,1 @@
+Todos os comando foram usados no MongoDB
