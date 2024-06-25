@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Especificidade CSS #01</title>
+  <style>
+    /*  
+      Em linhas gerais
+
+      1. Regra com !important
+      2. seletores mais específicos
+      3. última regra processada (empate)
+    */
+    
+    p {
+      background-color: #aaa;
+    }
+
+    .observacao {
+      background-color: #5f5;
+      border: dashed 5px;
+      padding: 200px!important;
+      font-size: 40px;
+    }
+
+    p.observacao {
+      padding: 2px;
+      background: linear-gradient(to right, red, yellow);
+    }
+  </style>
+</head>
+<body>
+  <p class="observacao">Olha essa observacao</p>
+</body>
+</html>

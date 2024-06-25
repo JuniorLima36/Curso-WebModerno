@@ -1,0 +1,96 @@
+<section>
+  <a href="../index.html">Voltar</a>
+  <style>
+    section {
+      height: 10px;
+    }
+  </style>
+</section>
+<video id="meuVideo" width="800" height="450" controls muted controlsList="nodownload">
+  <source src="http://files.cod3r.com.br/curso-web/video.mp4" type="video/mp4">
+  Seu browser não suporta a tag de vídeo.
+</video>
+
+<div wm-progresso="meuVideo" class="progresso">
+  <div></div>
+</div>
+
+<div>
+  <button wm-play="meuVideo">Play</button>
+  <button wm-pause="meuVideo">Pause</button>
+</div>
+
+<style>
+  section {
+    height: 25px;
+  }
+  .progresso {
+      height: 20px;
+      width: 500px;
+      border: solid 1px #444;
+      margin: 20px;
+  }
+
+  .progresso > div {
+      background-color: Yellowgreen;
+      color: #fff;
+      height: 100%;
+      text-align: right;
+      font-size: 14px;
+      width: 0%;
+  }
+</style>
+
+<script>
+  const vid = document.getElementById("meuVideo")
+  const bar = document.querySelector('[wm-progresso]>div')
+  const play = document.querySelector('[wm-play]')
+  const pause = document.querySelector('[wm-pause]')
+  const vol = document.querySelector('[wm-volume]')
+
+  // // Desabilita controles e menu de contexto
+  // vid.controls = false
+  // vid.oncontextmenu = function () { return false }
+
+  // Altera cor dos botões PLAY e PAUSE
+  function CorBotoes(colorPlay, colorPause) {
+      play.style.backgroundColor = colorPlay
+      pause.style.backgroundColor = colorPause
+  }
+
+  // Comportamento do botão PLAY
+  play.onclick = function (e) {
+      vid.play()
+      CorBotoes('YellowGreen', 'White')
+      progresso(bar)
+  }
+
+  // Comportamento do botão PAUSE
+  pause.onclick = function (e) {
+      if (vid.currentTime > 0 && vid.currentTime < vid.duration) {
+          vid.pause()
+          CorBotoes('White', 'Orange')
+      }
+  }
+
+  // Comportamento do seletor de VOLUME
+  vol.onchange = function (e) {
+      vid.volume = vol.value
+  }
+
+  // Barra de Progresso
+  function progresso(b) {
+      const currTime = vid.currentTime
+      const durat = vid.duration
+      let perc = (currTime / durat) * 100
+      perc = perc > 100 ? 100 : perc
+      b.style.width = `${perc}%`
+      b.innerHTML = `${perc.toFixed(1)}%`
+      setTimeout(() => {
+          if (perc >= 100)
+              CorBotoes('blue', 'White')
+          if (!vid.paused && perc < 100)
+              progresso(b)
+      }, 5)
+  }
+</script>
